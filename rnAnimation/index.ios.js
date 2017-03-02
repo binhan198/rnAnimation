@@ -18,30 +18,33 @@ import EventAnimation from './anime/EventAnimation.js';
 export default class rnAnimation extends Component {
 
   navigateToScene(route, navigator) {
+    let CustomAnime = null;
     switch(route.type) {
       case 'spring':{
-        return <SpringAnimation onBack = {() => navigator.pop()}/>
+        CustomAnime = SpringAnimation;
       } break;
       case 'decay':{
-        return <DecayAnimation onBack = {() => navigator.pop()}/>
+        CustomAnime = DecayAnimation;
       } break;
       case 'timing':{
-        return <TimingAnimation onBack = {() => navigator.pop()}/>
+        CustomAnime = TimingAnimation;
       } break;
       case 'combineAnime':{
-        return <ParallelAnimation onBack = {() => navigator.pop()}/>
+        CustomAnime = ParallelAnimation;
       } break;
       case 'event':{
-        return <EventAnimation onBack = {() => navigator.pop()}/>
+        CustomAnime = EventAnimation;
       } break;
       case 'LayoutAnime':{
-        return <LayoutAnime onBack = {() => navigator.pop()}/>
+        CustomAnime = LayoutAnime;
       } break;
       case 'AnimeList':{
         return <AnimeList onForward = {(animeType) => navigator.push({type : animeType})}/>
       } break;
       default: break;
     }
+
+    return <CustomAnime onBack = {() => navigator.pop()}/>
   }
 
   render() {
